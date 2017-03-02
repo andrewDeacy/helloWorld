@@ -40,7 +40,8 @@ namespace HelloWorld.Controllers
         public HttpResponseMessage WriteHelloWorld(IHelloWorldParameters parameters)
         {
             this.HelloWorldLogic = new Core.HelloWorld(this.StringMaker, parameters);
-            if (parameters.ApiId > 0 ) { // would actually check if token is valid from DB..
+            if (parameters.ApiId > 0) // ** Not actual auth implementation... more so representing api id check upon calls
+            {                         // ** IRL would actually check if token is valid (not expired) with additonal checks and DB call
                 this.HelloWorldLogic.PrintHelloWorld();
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -58,8 +59,8 @@ namespace HelloWorld.Controllers
         [Route("v1/hello_world/get_string")]
         public HttpResponseMessage ReturnHelloWorld(IHelloWorldParameters parameters)
         {
-            if (parameters.ApiId > 0)
-            { // would actually check if token is valid from DB..
+            if (parameters.ApiId > 0) // ** Not actual auth implementation... more so representing api id check upon calls
+            {                         // ** IRL would actually check if token is valid (not expired) with additonal checks and DB call
                 this.HelloWorldLogic.PrintHelloWorld();
                 return this.Request.CreateResponse(HttpStatusCode.OK, this.HelloWorldLogic.GetHelloWorld());
             }
